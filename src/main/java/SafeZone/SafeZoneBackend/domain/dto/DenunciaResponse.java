@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class DenunciaRespoonse {
+public class DenunciaResponse {
 
     private String id;
     private String usuarioid;
@@ -22,8 +22,8 @@ public class DenunciaRespoonse {
     private String direccion;
     private String fechaDenuncia;
 
-    public static DenunciaRespoonse from(Denuncias d) {
-        DenunciaRespoonse r = new DenunciaRespoonse();
+    public static DenunciaResponse from(Denuncias d) {
+        DenunciaResponse r = new DenunciaResponse();
         r.setId(d.getId());
         r.setUsuarioid(d.getUsuarioid());
         r.setVictimaid(d.getVictimaId());
