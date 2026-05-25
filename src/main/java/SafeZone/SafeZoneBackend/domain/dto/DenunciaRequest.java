@@ -10,22 +10,20 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class DenunciaRequest {
 
-
-    @JsonProperty("title")
     private String titulo;
 
-    @JsonProperty("description")
+
     private String descripcion;
 
-    @JsonProperty("type")
+
     private String tipoViolencia;
 
 
-    @JsonProperty("priority")// VIOLENCIAFISICA, ABUSOPSICOLOGICO, OTRO
+    // VIOLENCIAFISICA, ABUSOPSICOLOGICO, OTRO
     private String nivelRiesgo;
 
     // ALTO, MEDIO, BAJO
-    @JsonProperty("status")
+
     private String estado;
 
     // PENDIENTE, EN_ESPERA, EN_PROCESO, RESUELTO

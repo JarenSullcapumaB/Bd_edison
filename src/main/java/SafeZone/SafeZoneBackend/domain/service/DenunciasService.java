@@ -45,7 +45,7 @@ public class DenunciasService {
         denuncia.setNivelRiesgo(request.getNivelRiesgo());
         denuncia.setEstado(request.getEstado() != null ? request.getEstado() : "PENDIENTE");
         denuncia.setDireccion(request.getDireccion());
-        denuncia.setFechaDenuncia(LocalDateTime.now());
+        denuncia.setFechaDenuncia(denuncia.getFechaDenuncia());
         return denunciasRepository.guardar(denuncia);
     }
 

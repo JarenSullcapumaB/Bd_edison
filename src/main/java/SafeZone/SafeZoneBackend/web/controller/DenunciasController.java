@@ -28,7 +28,6 @@ public DenunciasService denunciasService;
             @RequestParam(required = false) String victimId) {
 
         System.out.println(">>> victimId recibido: " + victimId);
-        // ✅ Corrección — usa el método que devuelve List
         List<Denuncias> denuncias = victimId != null
                 ? denunciasService.buscarPorVictimaId(victimId)  // devuelve List
                 : denunciasService.listarTodas();
