@@ -26,8 +26,9 @@ public class DenunciasRepository {
     public Denuncias guardar(Denuncias denuncias) {
         return crud.save(denuncias);
     }
-    public void eliminar(Denuncias denuncias){
-        crud.deleteAll();
+
+    public void eliminar(Denuncias denuncias) {
+        crud.delete(denuncias);
     }
 
 }

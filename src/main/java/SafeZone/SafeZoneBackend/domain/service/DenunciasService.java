@@ -66,6 +66,22 @@ public class DenunciasService {
 
 
   public void eliminar(Denuncias denuncias) {
+    // RF-02 REGISTRAR INFORMACIÓN DE VIOLENCIA
+    public Denuncias registrarViolencia(String denunciaId, ViolenciaRequest request) {
+
+        Denuncias denuncia = denunciasRepository.buscarPorId(denunciaId)
+                .orElseThrow(() -> new RuntimeException("Denuncia no encontrada"));
+
+        denuncia.setTipoViolencia(request.getTipoViolencia());
+        denuncia.setDescripcion(request.getDescripcion());
+        denuncia.setNivelRiesgo(request.getNivelRiesgo());
+        denuncia.setDireccion(request.getDireccion());
+
+        return denunciasRepository.guardar(denuncia);
+    }
+
+    // ELIMINAR
+    public void eliminar(Denuncias denuncias) {
         denunciasRepository.eliminar(denuncias);
     }
 

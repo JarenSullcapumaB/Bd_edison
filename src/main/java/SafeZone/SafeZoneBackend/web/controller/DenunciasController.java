@@ -1,10 +1,8 @@
 package SafeZone.SafeZoneBackend.web.controller;
 
 import SafeZone.SafeZoneBackend.domain.dto.DenunciaRequest;
-import SafeZone.SafeZoneBackend.domain.dto.DenunciaRespoonse;
 import SafeZone.SafeZoneBackend.domain.service.DenunciasService;
 import SafeZone.SafeZoneBackend.persistence.entity.Denuncias;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -58,14 +56,27 @@ public DenunciasService denunciasService;
         return ResponseEntity.status(HttpStatus.CREATED).body(DenunciaRespoonse.from(nueva));
     }
 
-    // PUT /api/reports/{id}
-    @PutMapping("/{id}")
-    public ResponseEntity<DenunciaRespoonse> actualizar(
+    // RF-02 REGISTRAR INFORMACIÓN DE VIOLENCIA
+    @PutMapping("/violencia/{id}")
+    public Denuncias registrarViolencia(
             @PathVariable String id,
-            @RequestBody DenunciaRequest request) {
+            @RequestBody ViolenciaRequest request) {
 
-        Denuncias actualizada = denunciasService.actualizar(id, request);
-        return ResponseEntity.ok(DenunciaRespoonse.from(actualizada));
+        return denunciasService.registrarViolencia(id, request);
+    }
+
+    // RF-09 ASIGNAR CASO
+    @PatchMapping("/{id}/asignar")
+    public Denuncias asignarCaso(
+            @PathVariable String id,
+            @RequestBody AsignacionCasoRequest request
+    ) {
+        return denunciasService.asignarCaso(id, request);
+    }
+
+    @DeleteMapping("/eliminar")
+    public void eliminar(@RequestBody Denuncias denuncias) {
+        denunciasService.eliminar(denuncias);
     }
 }
 
