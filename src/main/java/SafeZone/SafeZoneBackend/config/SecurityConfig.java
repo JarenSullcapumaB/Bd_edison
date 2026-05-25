@@ -44,6 +44,9 @@ public class SecurityConfig {
                     .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
                         .requestMatchers("/api/auth/**").permitAll()
 
+
+                        .requestMatchers("/api/denuncias","/api/denuncias/**").hasAnyRole("VICTIM","ADMIN")
+
                         .requestMatchers("/api/victim/**").hasRole("VICTIM")
                         .requestMatchers("/api/psychologist/**").hasRole("PSYCHOLOGIST")
                         .requestMatchers("/api/defender/**").hasRole("DEFENDER")

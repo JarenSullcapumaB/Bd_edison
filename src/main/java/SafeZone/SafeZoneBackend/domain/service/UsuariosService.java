@@ -169,6 +169,12 @@ public class UsuariosService {
                 .fecharegistro(usuario.getFecharegistro())
                 .build();
     }
+
+    public Usuarios buscarPorEmail(String email) {
+        return usuariosRepository.buscarUsuarioPorEmail(email);
+    }
+
+
 }
 
 
