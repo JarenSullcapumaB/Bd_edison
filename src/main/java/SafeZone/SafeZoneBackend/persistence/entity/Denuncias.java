@@ -38,7 +38,8 @@ public class Denuncias {
     private String tipoViolencia;  //VIOLENCIAFISICA/ABUSO PSICOLOGICO/OTRO
     private String nivelRiesgo;    //BAJO/MEDIO/ALTO
     private String direccion;
-    private LocalDateTime fechaDenuncia;
+
+    private Instant fechaDenuncia;
 
 
 }

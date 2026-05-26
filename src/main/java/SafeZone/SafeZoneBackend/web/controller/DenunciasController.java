@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/reports")
+@RequestMapping("/api/denuncias")
 @CrossOrigin(origins = "http://localhost:5173")
 public class DenunciasController {
 
@@ -25,7 +25,7 @@ public class DenunciasController {
 public DenunciasService denunciasService;
 
     // GET /api/reports?victimId=1
-    @GetMapping
+    @GetMapping("/listar")
     public ResponseEntity<List<DenunciaResponse>> listar(
             @RequestParam(required = false) String victimId) {
 

@@ -10,9 +10,10 @@ import java.util.List;
 
 public interface DenunciasCrudRepository extends CosmosRepository<Denuncias,String> {
     // Usar @Query explícito para buscar por partition key
-        @Query("SELECT * FROM c WHERE c.usuarioid = @usuarioid")
-        List<Denuncias> findByUsuarioid(@Param("usuarioid") String usuarioid);
+    @Query("SELECT * FROM c WHERE c.usuarioid = @usuarioid")
+    List<Denuncias> findByUsuarioid(@Param("usuarioid") String usuarioid);
 
     @Override
     List<Denuncias> findAll();
 }
+

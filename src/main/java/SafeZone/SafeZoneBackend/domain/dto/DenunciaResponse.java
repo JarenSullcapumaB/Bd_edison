@@ -33,8 +33,11 @@ public class DenunciaResponse {
         r.setNivelRiesgo(d.getNivelRiesgo());
         r.setEstado(d.getEstado());
         r.setDireccion(d.getDireccion());
+
+        // Al ser Instant, .toString() devolverá un formato ISO estándar ideal para el frontend
         r.setFechaDenuncia(d.getFechaDenuncia() != null
                 ? d.getFechaDenuncia().toString() : null);
+
         return r;
     }
 
