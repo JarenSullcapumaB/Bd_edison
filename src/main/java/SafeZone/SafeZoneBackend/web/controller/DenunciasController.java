@@ -50,7 +50,7 @@ public DenunciasService denunciasService;
     }
 
     // POST /api/reports
-    @PostMapping
+    @PostMapping("/guardar")
     @PreAuthorize("hasRole('VICTIM')")
     public ResponseEntity<DenunciaResponse> crear(
             @Valid @RequestBody DenunciaRequest request,
