@@ -1,40 +1,86 @@
 package SafeZone.SafeZoneBackend.web.controller;
 
+import SafeZone.SafeZoneBackend.domain.dto.AsignacionCasoRequest;
 import SafeZone.SafeZoneBackend.domain.dto.DenunciaRequest;
+import SafeZone.SafeZoneBackend.domain.dto.DenunciaResponse;
+import SafeZone.SafeZoneBackend.domain.dto.ViolenciaRequest;
 import SafeZone.SafeZoneBackend.domain.service.DenunciasService;
 import SafeZone.SafeZoneBackend.persistence.entity.Denuncias;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/denuncias")
+@CrossOrigin(origins = "http://localhost:5173")
 public class DenunciasController {
 
 @Autowired
 public DenunciasService denunciasService;
 
-    // Listar todas las denuncias
+    // GET /api/reports?victimId=1
     @GetMapping("/listar")
-    public List<Denuncias> listar() {
-        return denunciasService.listarTodas();
+    public ResponseEntity<List<DenunciaResponse>> listar(
+            @RequestParam(required = false) String victimId) {
+
+        System.out.println(">>> victimId recibido: " + victimId);
+        List<Denuncias> denuncias = victimId != null
+                ? denunciasService.buscarPorVictimaId(victimId)  // devuelve List
+                : denunciasService.listarTodas();
+        System.out.println(">>> total encontradas: " + denuncias.size());
+        List<DenunciaResponse> response = denuncias.stream()
+                .map(DenunciaResponse::from)
+                .toList();
+
+        return ResponseEntity.ok(response);
     }
 
-    // Buscar una por UsuariosID
+    // GET /api/reports/{id}
     @GetMapping("/{id}")
-    public List<Denuncias> obtenerPorId(@PathVariable String id) {
-        return denunciasService.buscarPorUsuarioId(id);
+    public ResponseEntity<DenunciaResponse> obtenerPorId(@PathVariable String id) {
+        return denunciasService.buscarPorUsuarioId(id)
+                .map(d -> ResponseEntity.ok(DenunciaResponse.from(d)))
+                .orElse(ResponseEntity.notFound().build());
     }
 
-    @PostMapping("/guardar")
-    public Denuncias guardar(@RequestBody DenunciaRequest denuncia) {
-        return denunciasService.guardar(denuncia);
+    // POST /api/reports
+    @PostMapping
+    @PreAuthorize("hasRole('VICTIM')")
+    public ResponseEntity<DenunciaResponse> crear(
+            @Valid @RequestBody DenunciaRequest request,
+            @AuthenticationPrincipal String victimId) {
+
+        Denuncias nueva = denunciasService.crearDenuncia(request, victimId);
+        return ResponseEntity.status(HttpStatus.CREATED).body(DenunciaResponse.from(nueva));
     }
 
-    // Eliminar
+    // RF-02 REGISTRAR INFORMACIÓN DE VIOLENCIA
+    @PatchMapping("/{id}/asignar")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<DenunciaResponse> asignarCaso(
+            @PathVariable String id,
+            @RequestBody AsignacionCasoRequest request) {
+        Denuncias resultado = denunciasService.asignarCaso(id, request);
+        return ResponseEntity.ok(DenunciaResponse.from(resultado));
+    }
+
+    // RF-02
+    @PatchMapping("/{id}/violencia")
+    @PreAuthorize("hasRole('VICTIM')")
+    public ResponseEntity<DenunciaResponse> registrarViolencia(
+            @PathVariable String id,
+            @RequestBody ViolenciaRequest request) {
+        Denuncias resultado = denunciasService.registrarViolencia(id, request);
+        return ResponseEntity.ok(DenunciaResponse.from(resultado));
+    }
     @DeleteMapping("/eliminar")
-    public void eliminar(@PathVariable Denuncias denuncias) {
+    public void eliminar(@RequestBody Denuncias denuncias) {
         denunciasService.eliminar(denuncias);
     }
 }
