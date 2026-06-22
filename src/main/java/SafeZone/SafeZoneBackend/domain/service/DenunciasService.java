@@ -84,11 +84,11 @@ public class    DenunciasService {
         return denunciasRepository.guardar(denuncia);
     }
 
-   // RF-09 — Asignar caso a especialistas
+       // RF-09 — Asignar casos a especialistas
 
-    public Denuncias asignarCaso(String denunciaId, AsignacionCasoRequest request) {
-        Denuncias denuncia = denunciasRepository.buscarPorId(denunciaId)
-                .orElseThrow(() -> new RuntimeException("Denuncia no encontrada: " + denunciaId));
+        public Denuncias asignarCaso(String denunciaId, AsignacionCasoRequest request) {
+            Denuncias denuncia = denunciasRepository.buscarPorId(denunciaId)
+                    .orElseThrow(() -> new RuntimeException("Denuncia no encontrada: " + denunciaId));
 
         // Validar que no esté ya asignado
         if ("ASIGNADO".equals(denuncia.getEstado())) {

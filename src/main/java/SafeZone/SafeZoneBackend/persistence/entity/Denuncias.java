@@ -31,6 +31,7 @@ public class Denuncias {
     private String asignadoPorId;
     private Instant fechaAsignacion;
 
+
     private String victimaId;
     private String titulo;
     private String descripcion;

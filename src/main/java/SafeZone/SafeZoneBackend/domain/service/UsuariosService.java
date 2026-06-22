@@ -170,9 +170,15 @@ public class UsuariosService {
                 .build();
     }
 
-    public Usuarios buscarPorEmail(String email) {
-        return usuariosRepository.buscarUsuarioPorEmail(email);
+    public List<Usuarios> buscarPorRoLDefensorLegal(String Roles) {
+        return usuariosRepository.buscarUsuarioPorRol("DEFENDER");
+
     }
+    public List<Usuarios> buscarPorPsicologo(String Roles) {
+        return usuariosRepository.buscarUsuarioPorRol("PSYCHOLOGIST");
+
+    }
+
 
 
 }
