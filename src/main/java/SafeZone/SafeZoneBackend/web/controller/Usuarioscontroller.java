@@ -58,9 +58,17 @@ private UsuariosService usuariosService;
         usuariosService.eliminarusuario(usuarios);
     }
 
-
-
-
+    //GET/api/usuarios/defender
+    @GetMapping("/defender")
+    public ResponseEntity<List<Usuarios>> ListarDefensoresLegales() {
+        List<Usuarios> defensores = usuariosService.buscarPorRoLDefensorLegal("DEFENDER");
+        return ResponseEntity.ok(defensores);
+    }
+    @GetMapping("/psyphocolyst")
+    public ResponseEntity<List<Usuarios>> ListarPsicologos () {
+         List<Usuarios> psicologos = usuariosService.buscarPorPsicologo("PSYCHOLOGIST");
+         return ResponseEntity.ok(psicologos);
+    }
 }
 
 
