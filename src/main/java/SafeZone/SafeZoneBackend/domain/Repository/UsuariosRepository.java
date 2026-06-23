@@ -19,9 +19,8 @@ public class UsuariosRepository {
         return resultados.isEmpty() ? null : resultados.get(0);
     }
 
-    public Usuarios buscarUsuarioPorEmailYRol(String email, String roles) {
-        List<Usuarios> resultados = crud.findByEmailAndRoles(email, roles);
-        return resultados.isEmpty() ? null : resultados.get(0);
+    public List<Usuarios> buscarUsuarioPorRol( String roles) {
+       return  crud.findByRoles(roles);
     }
 
     public Optional<Usuarios> buscarPorId(String id) {

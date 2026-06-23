@@ -20,13 +20,13 @@ import java.time.Instant;
 public class Usuarios {
 
 @Id
-
+@PartitionKey
 private String id;
 
 private String nombre;
 
 private String apellido;
-@PartitionKey
+
 @JsonProperty("email")
 private String email;
 @JsonProperty("password")

@@ -17,6 +17,5 @@ public interface UsuariosCrudRepository extends CosmosRepository<Usuarios,String
    @Query(value = "SELECT * FROM c WHERE c.email = @email")
    List<Usuarios> findByEmail(@Param("email") String email);
 
-   @Query(value = "SELECT * FROM c WHERE c.email = @email AND c.roles = @roles")
-   List<Usuarios> findByEmailAndRoles(@Param("email") String email, @Param("roles") String roles);
+   List<Usuarios> findByRoles(String roles);
 }

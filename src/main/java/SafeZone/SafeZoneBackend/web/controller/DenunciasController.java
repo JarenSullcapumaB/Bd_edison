@@ -50,7 +50,7 @@ public DenunciasService denunciasService;
     }
 
     // POST /api/reports
-    @PostMapping
+    @PostMapping("/guardar")
     @PreAuthorize("hasRole('VICTIM')")
     public ResponseEntity<DenunciaResponse> crear(
             @Valid @RequestBody DenunciaRequest request,
@@ -60,7 +60,7 @@ public DenunciasService denunciasService;
         return ResponseEntity.status(HttpStatus.CREATED).body(DenunciaResponse.from(nueva));
     }
 
-    // RF-02 REGISTRAR INFORMACIÓN DE VIOLENCIA
+    // RF-09 ASIGANAR DENUNCIA A PROFESIONALES
     @PatchMapping("/{id}/asignar")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<DenunciaResponse> asignarCaso(
