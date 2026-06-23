@@ -9,7 +9,11 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface DenunciasCrudRepository extends CosmosRepository<Denuncias,String> {
-    List<Denuncias> findByUsuarioId(String usuarioId);
+    // Usar @Query explícito para buscar por partition key
+    @Query("SELECT * FROM c WHERE c.usuarioid = @usuarioid")
+    List<Denuncias> findByUsuarioid(@Param("usuarioid") String usuarioid);
+
     @Override
     List<Denuncias> findAll();
 }
+
