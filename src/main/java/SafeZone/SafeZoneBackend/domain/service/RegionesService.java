@@ -1,11 +1,12 @@
 package SafeZone.SafeZoneBackend.domain.service;
 
-import SafeZone.SafeZoneBackend.domain.Repository.RegionesRepository;
-import SafeZone.SafeZoneBackend.persistence.entity.Regiones;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import SafeZone.SafeZoneBackend.domain.Repository.RegionesRepository;
+import SafeZone.SafeZoneBackend.persistence.entity.Regiones;
 
 
 @Service
@@ -14,7 +15,7 @@ public class RegionesService {
     private RegionesRepository regionesRepository;
 
     public List<Regiones> listarTodas() {
-        return (List<Regiones>) regionesRepository.listarTodas();
+        return regionesRepository.listarTodas();
     }
 
     public Regiones crear(Regiones region) {

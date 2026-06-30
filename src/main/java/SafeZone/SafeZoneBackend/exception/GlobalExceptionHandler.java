@@ -1,7 +1,7 @@
 package SafeZone.SafeZoneBackend.exception;
 
-import SafeZone.SafeZoneBackend.domain.dto.ErrorResponse;
-import com.azure.core.exception.ResourceNotFoundException;
+import java.util.stream.Collectors;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.stream.Collectors;
+import SafeZone.SafeZoneBackend.domain.dto.ErrorResponse;
 
 /**
  * Manejador global de excepciones.

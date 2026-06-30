@@ -1,19 +1,26 @@
 package SafeZone.SafeZoneBackend.web.controller;
 
 
-import SafeZone.SafeZoneBackend.domain.dto.LoginRequest;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import SafeZone.SafeZoneBackend.domain.dto.RegisterRequest;
 import SafeZone.SafeZoneBackend.domain.dto.UpdateUsuarioRequest;
 import SafeZone.SafeZoneBackend.domain.dto.UsuarioResponse;
 import SafeZone.SafeZoneBackend.domain.service.UsuariosService;
 import SafeZone.SafeZoneBackend.persistence.entity.Usuarios;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("api/usuarios")
@@ -64,7 +71,7 @@ private UsuariosService usuariosService;
         List<Usuarios> defensores = usuariosService.buscarPorRoLDefensorLegal("DEFENDER");
         return ResponseEntity.ok(defensores);
     }
-    @GetMapping("/psyphocolyst")
+    @GetMapping("/psychologist")
     public ResponseEntity<List<Usuarios>> ListarPsicologos () {
          List<Usuarios> psicologos = usuariosService.buscarPorPsicologo("PSYCHOLOGIST");
          return ResponseEntity.ok(psicologos);

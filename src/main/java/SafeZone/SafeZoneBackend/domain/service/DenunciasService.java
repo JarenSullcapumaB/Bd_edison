@@ -1,5 +1,13 @@
 package SafeZone.SafeZoneBackend.domain.service;
 
+import java.time.Instant;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import SafeZone.SafeZoneBackend.domain.Repository.DenunciasRepository;
 import SafeZone.SafeZoneBackend.domain.Repository.UsuariosRepository;
 import SafeZone.SafeZoneBackend.domain.dto.AsignacionCasoRequest;
@@ -7,13 +15,6 @@ import SafeZone.SafeZoneBackend.domain.dto.DenunciaRequest;
 import SafeZone.SafeZoneBackend.domain.dto.ViolenciaRequest;
 import SafeZone.SafeZoneBackend.persistence.entity.Denuncias;
 import SafeZone.SafeZoneBackend.persistence.entity.Usuarios;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.time.Instant;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
 
 @Service
 public class    DenunciasService {
@@ -46,7 +47,7 @@ public class    DenunciasService {
         denuncia.setNivelRiesgo(request.getNivelRiesgo());
         denuncia.setEstado(request.getEstado() != null ? request.getEstado() : "PENDIENTE");
         denuncia.setDireccion(request.getDireccion());
-        denuncia.setFechaDenuncia(denuncia.getFechaDenuncia());
+        denuncia.setFechaDenuncia(Instant.now());
         return denunciasRepository.guardar(denuncia);
     }
 
@@ -100,7 +101,7 @@ public class    DenunciasService {
         denuncia.setAsignadoPorId(request.getAsignadoPorId());
         denuncia.setNivelRiesgo(request.getPrioridad());
         denuncia.setEstado("ASIGNADO");
-        denuncia.setFechaAsignacion(Instant.parse(Instant.now().toString())); // ← String para Cosmos
+        denuncia.setFechaAsignacion(Instant.now());
         return denunciasRepository.guardar(denuncia);
     }
 

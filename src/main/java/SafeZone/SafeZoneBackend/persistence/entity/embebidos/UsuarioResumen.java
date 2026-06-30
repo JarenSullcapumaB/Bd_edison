@@ -1,8 +1,12 @@
 package SafeZone.SafeZoneBackend.persistence.entity.embebidos;
 
 public class UsuarioResumen {
-private String id;
-private String nombre;;
+    
+    private String id;
+    private String nombre;
+
+    public UsuarioResumen() {}
+
 
     public UsuarioResumen(String id, String nombre) {
         this.id = id;
